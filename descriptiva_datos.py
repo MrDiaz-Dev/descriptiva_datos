@@ -1,5 +1,7 @@
 #! /usr/bin/env python3
 
+# Proyecto 1 de Simulacion y modelos por Gabriel Diaz y Maria Fernanda Lopez
+
 from lib2to3.pytree import convert
 import statistics
 import csv
