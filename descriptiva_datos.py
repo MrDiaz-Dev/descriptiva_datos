@@ -16,15 +16,24 @@ def convertir_csv_en_lista_de_float(archivo_csv):
             lista.append(nuevo_elemento)
   return lista
 
-def descriptiva_datos(lista):
-  cuatro_decimales = 10/3
+def descriptiva_datos():
+  Archivo = "muestra.csv"
+  lista = convertir_csv_en_lista_de_float(Archivo)
+
+  resultados = []
 
   media = statistics.mean(lista)
+  resultados.append(media)
   mediana = statistics.median(lista)
+  resultados.append(mediana)
   moda = statistics.mode(lista)
+  resultados.append(moda)
   varianza = statistics.variance(lista)
+  resultados.append(varianza)
   desviacion_estandar = statistics.stdev(lista)
+  resultados.append(desviacion_estandar)
   rango =  max(lista) - min(lista)
+  resultados.append(rango)
   
   print(f"La Media es: {media}")
   print(f"La Mediana es: {mediana}")
@@ -33,7 +42,9 @@ def descriptiva_datos(lista):
   print(f"La Desviacion Estandar es: {desviacion_estandar}")
   print(f"Y el Rango es: {rango}")
 
+  retorno = [lista, resultados]
+
+  return retorno
+  
 if __name__ == '__main__':
-  Archivo = "muestra.csv"
-  lista = convertir_csv_en_lista_de_float(Archivo)
-  descriptiva_datos(lista)
+  descriptiva_datos()
