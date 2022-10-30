@@ -2,33 +2,47 @@
 
 # Modulo de Test para el Proyecto 1 de Simulacion y modelos por Gabriel Diaz y Maria Fernanda Lopez 
 
+import re
 from tkinter import N
 import unittest as test
 import descriptiva_datos as desc
+import csv
 
 
 class test_descriptiva(test.TestCase):
 
-  resultados = desc.descriptiva_datos()
+  entradas = []
+  resultados_esperados = []
+
+  with open("./test_entradas.csv", newline='') as Archivo:  
+      reader = csv.reader(Archivo)
+      for fila in reader: 
+        intro = [] 
+        for elemento in fila:
+          nuevo_elemento = float(elemento)
+          intro.append(nuevo_elemento) 
+        entradas.append(intro)
+
+  with open("./test_salidas.csv", newline='') as Archivo:
+      reader = csv.reader(Archivo)
+      for fila in reader: 
+        resultados = [] 
+        for elemento in fila:
+          nuevo_elemento = float(elemento)
+          resultados.append(nuevo_elemento) 
+        resultados_esperados.append(resultados)
 
   def test_media(self):
-    mediaOptenida = self.resultados[1][0]
-    numeros = 0
-    for numero in self.resultados[0]:
-      numeros = numeros + numero
-    mediaEsperada =  numeros / len(self.resultados[0])
-    self.assertEqual(mediaEsperada,mediaOptenida,"LAS MEDIAS SON DISTINTAS A LO ESPERADO")
-    
-  def test_mediana(self):
-    medianaOptenida = self.resultados[1][1]
-    resultados_ordenados = sorted(self.resultados[0])
-    medianaEsperada = None
-    if len(resultados_ordenados) % 2 == 0:
-      aux = (resultados_ordenados[int(len(resultados_ordenados) / 2)] - resultados_ordenados[int(len(resultados_ordenados) / 2 - 1)]) / 2
-      medianaEsperada = resultados_ordenados[int(len(resultados_ordenados) / 2 - 1)] + aux
-    else:
-      medianaEsperada = resultados_ordenados[(int(len(resultados_ordenados)) - 1) / 2 + 1]
-    self.assertEqual(medianaEsperada,medianaOptenida,"LAS MEDIANAS SON DISTINTAS A LO ESPERADO")
+    n = 0
+    for entrada in self.entradas:
+      print("comparando resultados...")
+      resultados_optenidos = desc.descriptiva_datos(entrada)
+      m = 0
+      for resultado_optenido in resultados_optenidos:
+        self.assertAlmostEqual(resultado_optenido, self.resultados_esperados[n][m],3,"EL RESULTADO NO ES EL ESPERADO")
+        m = m + 1
+      n = n + 1
+      print("listo, sin problemas")
     
 if __name__ == '__main__':
   test.main()
