@@ -56,17 +56,17 @@ def tabular(z):
   print('----------------------------------')
   print('DATOS PORCENTAJE:')
   for clave in datosPorcentaje:
-    print(clave, ' ---> ', datosPorcentaje[clave])
+    print(clave, ' ---> ', round(datosPorcentaje[clave]*100, 2), '%')
 
   print('----------------------------------')
   print('DATOS PORCENTAJE ACUMULADO:')
   for clave in acumumulada:
-    print(clave, ' ---> ', acumumulada[clave])
+    print(clave, ' ---> ', round(acumumulada[clave]*100, 2), '%')
 
   print('----------------------------------')
   print('SIMULACION CON VARIABLE ALEATORIA EN ', z , ' ITERACIONES:')
   for clave in acumumulada:
-    print(clave, ' ---> ', simulacion[clave])
+    print(clave, ' ---> ', round(simulacion[clave]*100, 2), '%')
   
 
 tabular(10000)
